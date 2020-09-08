@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model package="mvtdocs" baseClass="xPDOObject" platform="mysql" defaultEngine="MyISAM" phpdoc-package="mvtdocs" version="1.1">
+
+    <object class="mvtDocsFiles" table="mvtdocs_files" extends="xPDOSimpleObject">
+        <field key="name" dbtype="varchar" precision="300" phptype="string" null="false" default=""/>
+		<field key="description" dbtype="varchar" precision="300" phptype="string" null="false" default=""/>
+		<field key="file" dbtype="varchar" precision="100" phptype="string" null="false" default=""/>
+        <field key="path" dbtype="varchar" precision="600" phptype="string" null="false" default=""/>
+		<field key="url" dbtype="varchar" precision="600" phptype="string" null="false" default=""/>
+		<field key="source" dbtype="int" precision="2" phptype="integer" attributes="unsigned" null="false"/>
+        <field key="added" dbtype="datetime" phptype="datetime" null="false"/>
+		<field key="itemtype" dbtype="varchar" precision="25" phptype="string" null="false" default=""/>
+		
+        <composite alias="Resources" class="mvtDocsResources" local="id" foreign="file_id" cardinality="many" owner="local"/>
+    </object>
+	
+
+	<object class="mvtDocsResources" table="mvtdocs_resources" extends="xPDOSimpleObject">
+        <field key="resource_id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false"/>
+		<field key="file_id" dbtype="int" precision="10" phptype="integer" attributes="unsigned" null="false"/>
+		<field key="type" dbtype="varchar" precision="100" phptype="string" null="true"/>
+		
+		<aggregate alias="File" class="mvtDocsFiles" local="file_id" foreign="id" owner="foreign" cardinality="one"/>
+    </object>
+	
+	
+	
+
+</model>
